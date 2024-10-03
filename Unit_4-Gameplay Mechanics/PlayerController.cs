@@ -5,14 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    private Rigitbody playerRb;
+    private Rigidbody playerRb;
     public float speed = 5.0f;
 
     public bool hasPowerup;
 
     private float powerupStrength = 15.0f;
 
-    public gameObject powerupIndicator
+    public gameObject powerupIndicator;
+
+    private GameObject focalPoint;
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -22,7 +24,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        void forwardInput = Input.GetAxis("Vertical");
+        float forwardInput = Input.GetAxis("Vertical");
         playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
 
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
@@ -33,7 +35,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Powerup"))
         {
             hasPowerup = true;
-            Destroy(other.GameObject);
+            Destroy(other.gameObject);
             StartCoroutine(PowerupCountdownRoutine());
             powerupIndicator.gameObject.SetActive(true);
         }
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") && hasPowerup)
         {
 
-            Rigidbody enemyRigidbody  = collision.gameObject.getComponent<enemyRigidbody>();
+            Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position);
 
             Debug.Log("Collided with " + collision.gameObject.name + " with powerup set to " + hasPowerup);
