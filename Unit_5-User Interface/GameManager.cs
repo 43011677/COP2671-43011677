@@ -14,12 +14,20 @@ public class GameManager : MonoBehaviour
     private float spawnRate = 1.0f;
     public bool isGameActive;
     public Button restartButton;
+    public GameObject titleScreen;
     void Start()
     {
+
+    }
+    public void StartGame(int difficulty)
+    {
+
+        spawnRate = spawnRate / difficulty;
         StartCoroutine(SpawnTarget()); 
         score = 0;
         UpdateScore(0);
         isGameActive = true;
+        titleScreen.gameObject.SetActive(false);
     }
 
     public void GameOver()
@@ -38,7 +46,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void RestartGame(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name;)
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void UpdateScore(int scoreToAdd)
     {

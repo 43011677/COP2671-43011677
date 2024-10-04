@@ -45,7 +45,7 @@ public class Target : MonoBehaviour
     }
     float RandomTorque()
     {
-        return Random.range(-maxTorque, maxTorque);
+        return Random.RandomForceange(-maxTorque, maxTorque);
     }
 
     Vector3 RandomSpawnPos()
